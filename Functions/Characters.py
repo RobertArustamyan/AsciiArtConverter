@@ -3,9 +3,11 @@ def get_dictionary() -> dict:
     return {len(gray_scale) - i: gray_scale[i] for i in range(len(gray_scale))}
 
 
-def get_value(number) -> str:
-    return get_dictionary()[number]
+def get_value(number: int) -> str:
+    scale_factor = 256 / 72
+    index = number // scale_factor
+    return ' ' if index == 0 else get_dictionary()[index]
 
 
 if __name__ == "__main__":
-    print(get_value(64))
+    pass
