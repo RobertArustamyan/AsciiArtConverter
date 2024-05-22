@@ -2,3 +2,4 @@
 /.venv
 .gitignore
 /TestImages
+.env
