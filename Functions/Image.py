@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 from dotenv import load_dotenv
 import os
 
@@ -7,9 +7,11 @@ load_dotenv()
 
 class Image2Ascii:
     scale = r"$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+
     def __init__(self, path):
         try:
             self._image = Image.open(path)
+            self.path = path
         except FileNotFoundError:
             print(f"There is no image in {path}")
 
@@ -32,11 +34,22 @@ class Image2Ascii:
         self.turn_to_gray()
         new_image_str = self.pixels_to_ascii()
         pixel_count = len(new_image_str)
-        ascii_image = '\n'.join(new_image_str[i:(i + new_width)] for i in range(0, pixel_count, new_width))
-        with open('Test.txt', 'w') as f:
-            f.write(ascii_image)
+        ascii_string = '\n'.join(new_image_str[i:(i + new_width)] for i in range(0, pixel_count, new_width))
+        return ascii_string
+
+    def ascii_to_image(self, ascii_string, font_size=16,background=(59, 73, 99), text_color=(200,200,200)):
+        lines = ascii_string.split('\n')
+        height = len(lines)
+        width = len(lines[0])
+        font = ImageFont.truetype("/usr/share/fonts/TTF/DejaVuSansMono.ttf", font_size)
+        image = Image.new('RGB', ((width) * font_size, height * font_size), color=background)
+        draw = ImageDraw.Draw(image)
+        for y, line in enumerate(lines):
+            draw.text((5, y * font_size), line, font=font,fill=text_color)
+        image.save(f'{"/".join(self.path.split('/')[:-1])}/ascii_image.png')
+
 
 if __name__ == '__main__':
     file_path = f"{os.getenv('folder_path')}/TestImages/2.jpg"
     a = Image2Ascii(file_path)
-    a.convert(1000)
+    a.ascii_to_image(a.convert(300))
