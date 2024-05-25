@@ -47,11 +47,14 @@ class Image2Ascii:
         draw = ImageDraw.Draw(image)
         for y, line in enumerate(lines):
             draw.text((5, y * font_size), line, font=font,fill=text_color)
-        image.save(f'{"/".join(self.path.split('/')[:-1])}/ascii_image.png')
 
-    def conver(self, convert_to_image:bool, new_width=200):
+        file_name = self.path.split('/')[-1].split('.')[0]
+        image.save(f'{"/".join(self.path.split('/')[:-1])}/{file_name}-ascii.png')
+
+    def convert(self, convert_to_image:bool, new_width=200):
         if convert_to_image:
-            pass
+            ascii_str = self.convert_to_string(new_width)
+            self.ascii_to_image(ascii_str)
         else:
             ascii_str = self.convert_to_string(new_width)
             file_name = self.path.split('/')[-1].split('.')[0]
