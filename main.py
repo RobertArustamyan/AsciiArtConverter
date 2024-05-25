@@ -30,6 +30,8 @@ def main():
             converter = Image2Ascii(path)
             if args.string:
                 converter.conver(convert_to_image=False, new_width=args.new_width)
+            else:
+                converter.conver(convert_to_image=True, new_width=args.new_width)
         else:
             print('Error: For image files, only --string and --image is allowed')
             sys.exit(1)
