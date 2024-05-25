@@ -42,9 +42,12 @@ class Image2Ascii:
         lines = ascii_string.split('\n')
         height = len(lines)
         width = len(lines[0])
+
         font = ImageFont.truetype("/usr/share/fonts/TTF/DejaVuSansMono.ttf", font_size)
-        image = Image.new('RGB', ((width) * font_size, height * font_size), color=background)
+
+        image = Image.new('RGB', (width * (font_size - 6), height * font_size), color=background)
         draw = ImageDraw.Draw(image)
+
         for y, line in enumerate(lines):
             draw.text((5, y * font_size), line, font=font,fill=text_color)
 
