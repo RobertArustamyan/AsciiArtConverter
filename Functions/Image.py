@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 from dotenv import load_dotenv
 import os
+import argparse
 
 load_dotenv()
 
@@ -29,7 +30,7 @@ class Image2Ascii:
         characters = "".join([self.scale[pixel * (len(self.scale) - 1) // 255] for pixel in pixels])
         return (characters)
 
-    def convert(self, new_width):
+    def convert_to_string(self, new_width=200):
         self.resize_image(new_width)
         self.turn_to_gray()
         new_image_str = self.pixels_to_ascii()
@@ -37,7 +38,7 @@ class Image2Ascii:
         ascii_string = '\n'.join(new_image_str[i:(i + new_width)] for i in range(0, pixel_count, new_width))
         return ascii_string
 
-    def ascii_to_image(self, ascii_string, font_size=16,background=(59, 73, 99), text_color=(200,200,200)):
+    def ascii_to_image(self, ascii_string, font_size=16,background=(40,44,52), text_color=(182,183,183)):
         lines = ascii_string.split('\n')
         height = len(lines)
         width = len(lines[0])
@@ -48,8 +49,16 @@ class Image2Ascii:
             draw.text((5, y * font_size), line, font=font,fill=text_color)
         image.save(f'{"/".join(self.path.split('/')[:-1])}/ascii_image.png')
 
+    def conver(self, convert_to_image:bool, new_width=200):
+        if convert_to_image:
+            pass
+        else:
+            ascii_str = self.convert_to_string(new_width)
+            file_name = self.path.split('/')[-1].split('.')[0]
+            with open(f"{"/".join(self.path.split('/')[:-1])}/{file_name}.txt", 'w') as f:
+                f.write(ascii_str)
 
 if __name__ == '__main__':
-    file_path = f"{os.getenv('folder_path')}/TestImages/2.jpg"
+    file_path = f"{os.getenv('folder_path')}/TestImages/1.png"
     a = Image2Ascii(file_path)
-    a.ascii_to_image(a.convert(300))
+    a.ascii_to_image(a.convert_to_string(200))
