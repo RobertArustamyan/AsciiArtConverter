@@ -56,7 +56,7 @@ class Image2Ascii:
         return ascii_string
 
     def ascii_to_image(self, ascii_string: str, font_size: int = 16, background: tuple = (40, 44, 52),
-                       text_color: tuple = (182, 183, 183)) -> None:
+                       text_color: tuple = (182, 183, 183),for_video:bool = False) -> None:
         '''
         :param ascii_string: String representation of picture
         :param font_size: Size of each character
@@ -77,9 +77,11 @@ class Image2Ascii:
             draw.text((5, y * font_size), line, font=font, fill=text_color)
 
         file_name = self.path.split('/')[-1].split('.')[0]
-        image.save(f'{"/".join(self.path.split('/')[:-1])}/{file_name}-ascii.png')
+        if not for_video:
+            image.save(f'{"/".join(self.path.split('/')[:-1])}/{file_name}-ascii.png')
+        return image
 
-    def convert(self, convert_to_image: bool, new_width: int = 200):
+    def convert(self, convert_to_image: bool, new_width: int = 200,for_video:bool = False):
         '''
         Image to image and image to string convertation
         :param convert_to_image: If True converts to image else in string
@@ -87,7 +89,7 @@ class Image2Ascii:
         '''
         if convert_to_image:
             ascii_str = self.convert_to_string(new_width)
-            self.ascii_to_image(ascii_str)
+            return self.ascii_to_image(ascii_str,for_video=for_video)
         else:
             ascii_str = self.convert_to_string(new_width)
             file_name = self.path.split('/')[-1].split('.')[0]
