@@ -1,7 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 from dotenv import load_dotenv
 import os
-import argparse
 
 load_dotenv()
 
@@ -16,21 +15,39 @@ class Image2Ascii:
         except FileNotFoundError:
             print(f"There is no image in {path}")
 
-    def resize_image(self, new_width=200):
+    def resize_image(self, new_width: int = 200) -> None:
+        '''
+        Changes picture size
+        :param new_width: New width of picture
+        :return: Modifies image with new width and height
+        '''
         width, height = self._image.size
         factor = height / width
         new_height = int(factor * new_width)
         self._image = self._image.resize((new_width, new_height))
 
-    def turn_to_gray(self):
+    def turn_to_gray(self) -> None:
+        '''
+        Converts picture to gray
+        :return: None
+        '''
         self._image = self._image.convert('L')
 
-    def pixels_to_ascii(self):
+    def pixels_to_ascii(self) -> tuple:
+        '''
+        Makes a character tuple depending on pixel
+        :return: Tuple of characters
+        '''
         pixels = self._image.getdata()
         characters = "".join([self.scale[pixel * (len(self.scale) - 1) // 255] for pixel in pixels])
         return (characters)
 
-    def convert_to_string(self, new_width=200):
+    def convert_to_string(self, new_width: int = 200) -> str:
+        '''
+        Converts image to ascii string. Is used if -s or --string
+        :param new_width: New width of picture
+        :return: Returns string that is representation of picture in ascii
+        '''
         self.resize_image(new_width)
         self.turn_to_gray()
         new_image_str = self.pixels_to_ascii()
@@ -38,7 +55,15 @@ class Image2Ascii:
         ascii_string = '\n'.join(new_image_str[i:(i + new_width)] for i in range(0, pixel_count, new_width))
         return ascii_string
 
-    def ascii_to_image(self, ascii_string, font_size=16,background=(40,44,52), text_color=(182,183,183)):
+    def ascii_to_image(self, ascii_string: str, font_size: int = 16, background: tuple = (40, 44, 52),
+                       text_color: tuple = (182, 183, 183)) -> None:
+        '''
+        :param ascii_string: String representation of picture
+        :param font_size: Size of each character
+        :param background: Background color in RGB format
+        :param text_color: Text color in RGB format
+        :return: Saves an image in -ascii.png
+        '''
         lines = ascii_string.split('\n')
         height = len(lines)
         width = len(lines[0])
@@ -49,12 +74,17 @@ class Image2Ascii:
         draw = ImageDraw.Draw(image)
 
         for y, line in enumerate(lines):
-            draw.text((5, y * font_size), line, font=font,fill=text_color)
+            draw.text((5, y * font_size), line, font=font, fill=text_color)
 
         file_name = self.path.split('/')[-1].split('.')[0]
         image.save(f'{"/".join(self.path.split('/')[:-1])}/{file_name}-ascii.png')
 
-    def convert(self, convert_to_image:bool, new_width=200):
+    def convert(self, convert_to_image: bool, new_width: int = 200):
+        '''
+        Image to image and image to string convertation
+        :param convert_to_image: If True converts to image else in string
+        :param new_width: Width of new image
+        '''
         if convert_to_image:
             ascii_str = self.convert_to_string(new_width)
             self.ascii_to_image(ascii_str)
@@ -63,6 +93,7 @@ class Image2Ascii:
             file_name = self.path.split('/')[-1].split('.')[0]
             with open(f"{"/".join(self.path.split('/')[:-1])}/{file_name}.txt", 'w') as f:
                 f.write(ascii_str)
+
 
 if __name__ == '__main__':
     file_path = f"{os.getenv('folder_path')}/TestImages/1.png"
