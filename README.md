@@ -10,13 +10,16 @@ This project converts images and videos into ASCII art. It can transform a singl
 
 ## Demo
 #### Video to Video
-<img src="Demo/1.gif" alt="Demo Video" height="250" width="300">
-<img src="Demo/1-ascii.gif" alt="Demo ASCII Video" width="300">
+<p align="center">
+  <img src="Demo/1.gif" alt="Demo Video" height="250" width="300">
+  <img src="Demo/1-ascii.gif" alt="Demo ASCII Video" height="250" width="300">
+</p>
 
 #### Image to Image
-<img src="Demo/1.png" alt="Demo Image" width="300">
-<img src="Demo/1-ascii.png" alt="Demo Ascii Image" height="150" width="300">
-
+<p align="center">
+  <img src="Demo/1.png" alt="Demo Image" height="150" width="300">
+  <img src="Demo/1-ascii.png" alt="Demo Ascii Image" height="150" width="300">
+</p>
 ## Installation
 
 1. Clone the repository:
