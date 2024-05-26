@@ -31,6 +31,7 @@ This project converts images and videos into ASCII art. It can transform a singl
    pip install -r requirements.txt
    ```
 3. Create .env file and configurate the path to your project
+   
 ## Usage
 1. Image to Ascii
    ```bash
