@@ -1,3 +1,7 @@
+[![Pillow Version](https://img.shields.io/badge/Pillow-8.3.2-green?style=for-the-badge&logo=pillow&logoColor=white)](https://python-pillow.org/)
+[![MoviePy Version](https://img.shields.io/badge/MoviePy-1.0.3-ff69b4?style=for-the-badge&logo=moviepy&logoColor=white)](https://zulko.github.io/moviepy/)
+[![Python](https://img.shields.io/badge/Python-3.6%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+
 # ASCII Art Converter
 
 This project converts images and videos into ASCII art. It can transform a single image to an ASCII string representation (saved as an image) and convert video files into ASCII art videos.
