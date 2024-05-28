@@ -1,6 +1,6 @@
+[![Python](https://img.shields.io/badge/Python-3.6%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Pillow Version](https://img.shields.io/badge/Pillow-8.3.2-green?style=for-the-badge&logo=pillow&logoColor=white)](https://python-pillow.org/)
 [![MoviePy Version](https://img.shields.io/badge/MoviePy-1.0.3-ff69b4?style=for-the-badge&logo=moviepy&logoColor=white)](https://zulko.github.io/moviepy/)
-[![Python](https://img.shields.io/badge/Python-3.6%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 
 # ASCII Art Converter
 
