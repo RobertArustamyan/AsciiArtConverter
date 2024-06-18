@@ -12,4 +12,4 @@ python-dotenv==1.0.1
 requests==2.32.2
 setuptools==70.0.0
 tqdm==4.66.4
-urllib3==2.2.1
+urllib3~>2.2.2
