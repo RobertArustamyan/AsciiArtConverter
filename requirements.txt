@@ -1,4 +1,4 @@
-certifi==2024.2.2
+certifi~> 2024.07.04
 charset-normalizer==3.3.2
 decorator==4.4.2
 idna==3.7
