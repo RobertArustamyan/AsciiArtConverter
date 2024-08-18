@@ -37,7 +37,7 @@ class Image2Ascii:
         ascii_string = '\n'.join(new_image_str[i:(i + new_width)] for i in range(0, pixel_count, new_width))
         return ascii_string
 
-    def convert(self, convert_to_image: bool, new_width: int = 200,save:bool = False,colorness=True) -> None:
+    def convert(self, convert_to_image: bool, new_width: int = 200, save: bool = False, colorness=True) -> None:
         """
         Converts an image depending on the parameters of function.
         :param convert_to_image: True - converts to image. False - converts to string.
@@ -52,6 +52,7 @@ class Image2Ascii:
             file_name = self.path.split('/')[-1].split('.')[0]
             with open(f"{"/".join(self.path.split('/')[:-1])}/{file_name}.txt", 'w') as f:
                 f.write(ascii_str)
+
     @staticmethod
     def resizeImage(image: Image, newWidth: int) -> Image:
         """
@@ -66,7 +67,6 @@ class Image2Ascii:
 
         return image.resize((newWidth, newHeight))
 
-
     def convertToColor(self, new_width: int = 200, font_size: int = 16, background: tuple = (40, 44, 52),
                        colorness: bool = True, save: bool = False) -> Image:
         """
@@ -80,7 +80,7 @@ class Image2Ascii:
         """
         # Resizing original image.
         originalImage = Image.open(self.path).convert('RGB')
-        originalImage = self.resizeImage(originalImage,new_width)
+        originalImage = self.resizeImage(originalImage, new_width)
 
         pixels = originalImage.getdata()
 
@@ -114,6 +114,7 @@ class Image2Ascii:
             file_name = self.path.split('/')[-1].split('.')[0]
             image.save(f'{"/".join(self.path.split('/')[:-1])}/{file_name}-ascii.png')
         return image
+
 
 if __name__ == '__main__':
     file_path = f"{os.getenv('folder_path')}/TestImages/1.png"
