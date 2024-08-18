@@ -1,5 +1,4 @@
 import PIL.Image
-import moviepy.editor
 
 from Functions.Image import Image2Ascii
 from moviepy.editor import ImageSequenceClip, VideoFileClip
@@ -13,9 +12,9 @@ load_dotenv()
 class Video2Ascii:
     def __init__(self, path):
         self.path = path
-        self.check_file()
+        self.checkFile()
 
-    def check_file(self):
+    def checkFile(self):
         """
         Checks the file existence
         :return: Expectation if file is not in necessary format.
@@ -27,7 +26,7 @@ class Video2Ascii:
         except FileNotFoundError:
             print(f"The file provided is not in the necessary format")
 
-    def extract_frames(self, fps: int = 5) -> list:
+    def extractFrames(self, fps: int = 5) -> list:
         """
         Gets frames from the video
         :param fps: Frames per second
@@ -38,28 +37,29 @@ class Video2Ascii:
         clip.close()
         return frames
 
-    def convert_frame(self, frame, new_width,colorness=True) -> PIL.Image.Image:
+    @staticmethod
+    def convertFrame(frame, new_width, colorness=True) -> PIL.Image:
         """
-        Converts frame into PIL.Image
-        :param frame: HxNxf format np.array
-        :param new_width: width of new video
+        Converts frame into PIL.Image.
+        :param frame: One frame of the video.
+        :param new_width: width of new video.
         """
         image = Image.fromarray(frame)
         temp_path = f"{os.getenv('folder_path')}/TestVideos/temp.png"
         image.save(temp_path)
         converter = Image2Ascii(temp_path)
-        return converter.convert(convert_to_image=True, new_width=new_width,colorness=colorness,save=False)
+        return converter.convert(convert_to_image=True, new_width=new_width, colorness=colorness, save=False)
 
-    def convert_video(self, fps: int = 5, new_width: int = 150):
+    def convertVideo(self, fps: int = 5, new_width: int = 150) -> None:
         """
-        Converts video into Ascii Video
-        :param fps: Frames per Second
-        :param new_width:
+        Converts video depending on fps and desire width.
+        :param fps: The amount of frames that will be get from 1 second of video.
+        :param new_width: Width of converted video.
         """
-        frames = self.extract_frames(fps)
+        frames = self.extractFrames(fps)
         image_paths = []
         for i, frame in enumerate(frames):
-            ascii_image = self.convert_frame(frame, new_width=new_width)
+            ascii_image = self.convertFrame(frame, new_width=new_width)
             image_path = f"{os.getenv('folder_path')}/TestVideos/frame_{i}.png"
             ascii_image.save(image_path)
             image_paths.append(image_path)
@@ -74,6 +74,6 @@ class Video2Ascii:
 
 
 if __name__ == "__main__":
-    file_path = f"{os.getenv('folder_path')}/TestVideos/video.mp4"
+    file_path = f"{os.getenv('folder_path')}/TestVideos/2.mp4"
     v = Video2Ascii(file_path)
-    v.convert_video(10)
+    v.convertVideo(10)
