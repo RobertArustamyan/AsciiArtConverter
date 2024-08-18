@@ -22,6 +22,7 @@ def main():
 
     args = parser.parse_args()
     filename = args.filename
+    print(filename)
     if filename.endswith('.mp4'):
         if not args.video:
             print('Error: For video files, only the --video option is allowed')
@@ -31,7 +32,7 @@ def main():
             path = f"{os.getenv('folder_path')}/TestVideos/{filename}"
             converter = Video2Ascii(path)
             fps = int(input("Fps for video: "))
-            converter.convert_video(fps=fps, new_width=args.new_width)
+            converter.convertVideo(fps=fps, new_width=args.new_width)
 
     elif filename.endswith('.png') or filename.endswith('.jpg'):
         if args.string or args.image:
