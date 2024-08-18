@@ -117,6 +117,6 @@ class Image2Ascii:
 
 
 if __name__ == '__main__':
-    file_path = f"{os.getenv('folder_path')}/TestImages/1.png"
+    file_path = f"{os.getenv('folder_path')}/TestImages/5.jpg"
     a = Image2Ascii(file_path)
-    a.convertToColor(200, colorness=True, save=True)
+    a.convertToColor(300, colorness=True, save=True)
