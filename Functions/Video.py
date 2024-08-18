@@ -16,10 +16,10 @@ class Video2Ascii:
         self.check_file()
 
     def check_file(self):
-        '''
+        """
         Checks the file existence
-        :return: Expectation if file is not founc
-        '''
+        :return: Expectation if file is not in necessary format.
+        """
         try:
             file_extension = os.path.split(self.path)[1].lower().split('.')[1]
             if file_extension not in ['mp4']:
@@ -28,35 +28,34 @@ class Video2Ascii:
             print(f"The file provided is not in the necessary format")
 
     def extract_frames(self, fps: int = 5) -> list:
-        '''
+        """
         Gets frames from the video
         :param fps: Frames per second
         :return: Returns list of frames
-        '''
+        """
         clip = VideoFileClip(self.path)
         frames = [frame for frame in clip.iter_frames(fps)]
         clip.close()
         return frames
 
-    def convert_frame(self, frame, new_width) -> PIL.Image.Image:
-        '''
+    def convert_frame(self, frame, new_width,colorness=True) -> PIL.Image.Image:
+        """
         Converts frame into PIL.Image
         :param frame: HxNxf format np.array
         :param new_width: width of new video
-        :return:
-        '''
+        """
         image = Image.fromarray(frame)
         temp_path = f"{os.getenv('folder_path')}/TestVideos/temp.png"
         image.save(temp_path)
         converter = Image2Ascii(temp_path)
-        return converter.convert(convert_to_image=True, new_width=new_width, for_video=True)
+        return converter.convert(convert_to_image=True, new_width=new_width,colorness=colorness,save=False)
 
     def convert_video(self, fps: int = 5, new_width: int = 150):
-        '''
+        """
         Converts video into Ascii Video
         :param fps: Frames per Second
         :param new_width:
-        '''
+        """
         frames = self.extract_frames(fps)
         image_paths = []
         for i, frame in enumerate(frames):
